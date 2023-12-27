@@ -12,7 +12,7 @@ public class CuentasClientesLineasOld {
 	
 	private BigDecimal importe;
 	
-	private String descripción;
+	private String descripcion;
 
 	public int getIdCliente() {
 		return idCliente;
@@ -46,21 +46,21 @@ public class CuentasClientesLineasOld {
 		this.importe = importe;
 	}
 
-	public String getDescripción() {
-		return descripción;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setDescripción(String descripción) {
-		this.descripción = descripción;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public CuentasClientesLineasOld(int idCliente, String fecha, int idTipoCobros, BigDecimal importe,
-			String descripción) {
+			String descripcion) {
 		super();
 		this.idCliente = idCliente;
 		this.fecha = fecha;
 		this.idTipoCobros = idTipoCobros;
 		this.importe = importe;
-		this.descripción = descripción;
+		this.descripcion = descripcion;
 	}
 }

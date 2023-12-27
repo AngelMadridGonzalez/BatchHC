@@ -30,7 +30,7 @@ public class BatchConfiguration {
 
 	@Bean
 	public FlatFileItemReader<CuentasClientesOld> reader() {
-		return new FlatFileItemReaderBuilder<CuentasClientesOld>().name("coffeeItemReader")
+		return new FlatFileItemReaderBuilder<CuentasClientesOld>().name("cuentasClientesOldItemReader")
 				.resource(new ClassPathResource(fileInput)).delimited()
 				.names(new String[] { "lnk_idcliente", "direccion", "fecha" })
 				.fieldSetMapper(new BeanWrapperFieldSetMapper<CuentasClientesOld>() {
@@ -50,7 +50,7 @@ public class BatchConfiguration {
 		return new JdbcBatchItemWriterBuilder<CuentasClientesNew>()
 				.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
 				// FIXME Aqui metemos la query
-				.sql("INSERT INTO coffee (brand, origin, characteristics) VALUES (:brand, :origin, :characteristics)")
+				.sql("INSERT INTO CuentasClientesNew (id, idCliente, idTicketCobro, tarjeta, importe, estado) VALUES (:id, :idCliente, :idTicketCobro, :tarjeta, :importe, :estado)")
 				.dataSource(dataSource).build();
 	}
 

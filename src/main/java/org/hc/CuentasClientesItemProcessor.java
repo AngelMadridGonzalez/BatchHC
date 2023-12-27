@@ -22,22 +22,31 @@ public class CuentasClientesItemProcessor implements ItemProcessor<CuentasClient
          * fecha
          * idTipoCobro
          * importe
-         * descrición
+         * descricion
          */
         
         /** CUENTAS CLIENTE NEW
+         * id
          * idCliente
          * idTicketCobro
          * tarjeta
+         * importe
+         * estado
          */
         
         /**
          * Unificar las 3 tablas en 1 tabla auxiliar y luego montar otro batch para insertar
          */
-        cuentasClientesNew.setIdCliente(cuentasClientesOld.getIdCliente());
-        cuentasClientesNew.setIdTicketCobro(idTicketCobro);
-        cuentasClientesNew.setTarjeta(tarjeta);
+          
+        //FIX Add correct Values
+        cuentasClientesNew.setId(0);
+        cuentasClientesNew.setIdTicketCobro(0);
+        cuentasClientesNew.setTarjeta(null);
+        cuentasClientesNew.setImporte(0);
+        cuentasClientesNew.setEstado(0);
         
+        
+        cuentasClientesNew.setIdCliente(cuentasClientesOld.getIdCliente());
         LOGGER.info("Converting ( {} ) into ( {} )", cuentasClientesOld, cuentasClientesNew);
 
         return cuentasClientesNew;

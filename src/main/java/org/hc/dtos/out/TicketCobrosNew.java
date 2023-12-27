@@ -4,11 +4,13 @@ import java.math.BigDecimal;
 
 public class TicketCobrosNew {
 
+	private int id;
+	
 	private int idTipoCobro;
 	
 	private int numeroTicket;
 	
-	private int idOcupación;
+	private int idOcupacion;
 
 	private BigDecimal importe;
 
@@ -16,7 +18,33 @@ public class TicketCobrosNew {
 	
 	private String fechaPago;
 	
-	private String observación;
+	private String observacion;
+
+	public TicketCobrosNew() {
+		super();
+
+	}
+	
+	public TicketCobrosNew(int id, int idTipoCobro, int numeroTicket, int idOcupacion, BigDecimal importe,
+			String cobrado, String fechaPago, String observacion) {
+		super();
+		this.id = id;
+		this.idTipoCobro = idTipoCobro;
+		this.numeroTicket = numeroTicket;
+		this.idOcupacion = idOcupacion;
+		this.importe = importe;
+		this.cobrado = cobrado;
+		this.fechaPago = fechaPago;
+		this.observacion = observacion;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getIdTipoCobro() {
 		return idTipoCobro;
@@ -34,12 +62,12 @@ public class TicketCobrosNew {
 		this.numeroTicket = numeroTicket;
 	}
 
-	public int getIdOcupación() {
-		return idOcupación;
+	public int getIdOcupacion() {
+		return idOcupacion;
 	}
 
-	public void setIdOcupación(int idOcupación) {
-		this.idOcupación = idOcupación;
+	public void setIdOcupacion(int idOcupacion) {
+		this.idOcupacion = idOcupacion;
 	}
 
 	public BigDecimal getImporte() {
@@ -66,27 +94,12 @@ public class TicketCobrosNew {
 		this.fechaPago = fechaPago;
 	}
 
-	public String getObservación() {
-		return observación;
+	public String getObservacion() {
+		return observacion;
 	}
 
-	public void setObservación(String observación) {
-		this.observación = observación;
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 
-	public TicketCobrosNew(int idTipoCobro, int numeroTicket, int idOcupación, BigDecimal importe, String cobrado,
-			String fechaPago, String observación) {
-		super();
-		this.idTipoCobro = idTipoCobro;
-		this.numeroTicket = numeroTicket;
-		this.idOcupación = idOcupación;
-		this.importe = importe;
-		this.cobrado = cobrado;
-		this.fechaPago = fechaPago;
-		this.observación = observación;
-	}
-
-	public TicketCobrosNew() {
-		super();
-	}
 }

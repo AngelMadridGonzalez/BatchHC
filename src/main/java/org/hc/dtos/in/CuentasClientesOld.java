@@ -4,7 +4,7 @@ public class CuentasClientesOld {
 
 	private int idCliente;
 	
-	private String dirección;
+	private String direccion;
 	
 	private String fecha;
 
@@ -16,12 +16,12 @@ public class CuentasClientesOld {
 		this.idCliente = idCliente;
 	}
 
-	public String getDirección() {
-		return dirección;
+	public String getDireccion() {
+		return direccion;
 	}
 
-	public void setDirección(String dirección) {
-		this.dirección = dirección;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 	public String getFecha() {
@@ -32,10 +32,10 @@ public class CuentasClientesOld {
 		this.fecha = fecha;
 	}
 
-	public CuentasClientesOld(int idCliente, String dirección, String fecha) {
+	public CuentasClientesOld(int idCliente, String direccion, String fecha) {
 		super();
 		this.idCliente = idCliente;
-		this.dirección = dirección;
+		this.direccion = direccion;
 		this.fecha = fecha;
 	}
 }
