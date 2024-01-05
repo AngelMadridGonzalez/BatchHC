@@ -41,7 +41,7 @@ public class CuentasClientesItemProcessor implements ItemProcessor<CuentasClient
          */
           
         //FIX Add correct Values
-        cuentasClientesNew.setId(Integer.parseInt(new String(cuentasClientesOld.getIdCliente().getBytes(), StandardCharsets.UTF_8)));
+        cuentasClientesNew.setId(Integer.parseInt(cuentasClientesOld.getIdCliente()));
         cuentasClientesNew.setIdTicketCobro(0);
         cuentasClientesNew.setTarjeta(null);
         cuentasClientesNew.setImporte(0);

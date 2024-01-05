@@ -43,22 +43,24 @@ public class BatchConfiguration {
 				.resource(new ClassPathResource("cuentasclientes.csv"))
 				.delimited()
 				.names(new String[] { "lnk_idcliente", "direccion", "fecha" })
+				.encoding("ISO_8859_1")
 				.fieldSetMapper(new BeanWrapperFieldSetMapper<CuentasClientesOld>() {
 					{
 						this.setTargetType(CuentasClientesOld.class);
 					}
-					@Override
-					public CuentasClientesOld mapFieldSet(FieldSet fs) throws BindException {
-
-						CuentasClientesOld tmp= super.mapFieldSet(fs);
-						tmp.setIdCliente(fs.readRawString(0).replaceAll("\uFFFD", ""));
-						tmp.setFecha(fs.readRawString(1));
-						tmp.setDireccion(fs.readRawString(2));
-
-
-						return tmp;
-					}
-				}).build();
+//					@Override
+//					public CuentasClientesOld mapFieldSet(FieldSet fs) throws BindException {
+//
+//						CuentasClientesOld tmp= super.mapFieldSet(fs);
+//						tmp.setIdCliente(fs.readRawString(0).replaceAll("\uFFFD", ""));
+//						tmp.setFecha(fs.readRawString(1));
+//						tmp.setDireccion(fs.readRawString(2));
+//
+//
+//						return tmp;
+//					}
+				})
+				.build();
 
 		LOGGER.info("******* END reader *******");
 		return reader;
