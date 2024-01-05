@@ -1,4 +1,4 @@
-package org.hc.dtos.out;
+package org.hc.model.out;
 
 public class CuentasClientesNew {
 

@@ -1,18 +1,18 @@
-package org.hc.dtos.in;
+package org.hc.model.in;
 
 public class CuentasClientesOld {
 
-	private int idCliente;
+	private String idCliente;
 	
 	private String direccion;
 	
 	private String fecha;
 
-	public int getIdCliente() {
+	public String getIdCliente() {
 		return idCliente;
 	}
 
-	public void setIdCliente(int idCliente) {
+	public void setIdCliente(String idCliente) {
 		this.idCliente = idCliente;
 	}
 
@@ -32,10 +32,13 @@ public class CuentasClientesOld {
 		this.fecha = fecha;
 	}
 
-	public CuentasClientesOld(int idCliente, String direccion, String fecha) {
-		super();
+	public CuentasClientesOld(String idCliente, String direccion, String fecha) {
 		this.idCliente = idCliente;
 		this.direccion = direccion;
 		this.fecha = fecha;
+	}
+
+	public CuentasClientesOld() {
+		super();
 	}
 }

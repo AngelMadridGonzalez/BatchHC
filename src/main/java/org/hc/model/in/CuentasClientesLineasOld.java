@@ -1,4 +1,4 @@
-package org.hc.dtos.in;
+package org.hc.model.in;
 
 import java.math.BigDecimal;
 

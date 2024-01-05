@@ -1,7 +1,7 @@
 package org.hc;
 
-import org.hc.dtos.in.CuentasClientesOld;
-import org.hc.dtos.out.CuentasClientesNew;
+import org.hc.model.in.CuentasClientesOld;
+import org.hc.model.out.CuentasClientesNew;
 import org.springframework.batch.item.ItemProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,10 +44,11 @@ public class CuentasClientesItemProcessor implements ItemProcessor<CuentasClient
         cuentasClientesNew.setTarjeta(null);
         cuentasClientesNew.setImporte(0);
         cuentasClientesNew.setEstado(0);
-        
-        
-        cuentasClientesNew.setIdCliente(cuentasClientesOld.getIdCliente());
-        LOGGER.info("Converting ( {} ) into ( {} )", cuentasClientesOld, cuentasClientesNew);
+
+        String value = new String(cuentasClientesOld.getIdCliente().getBytes(), "UTF-8");
+
+        cuentasClientesNew.setIdCliente(Integer.parseInt(value));
+        LOGGER.info("**************  Converting ( {} ) into ( {} )", cuentasClientesOld, cuentasClientesNew);
 
         return cuentasClientesNew;
 	}
