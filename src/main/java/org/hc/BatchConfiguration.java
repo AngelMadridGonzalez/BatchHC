@@ -16,6 +16,7 @@ import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourc
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.FlatFileParseException;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
@@ -48,9 +49,13 @@ public class BatchConfiguration {
 					}
 					@Override
 					public CuentasClientesOld mapFieldSet(FieldSet fs) throws BindException {
-						CuentasClientesOld tmp= super.mapFieldSet(fs);
 
-						tmp.setDireccion("xxx");
+						CuentasClientesOld tmp= super.mapFieldSet(fs);
+						tmp.setIdCliente(fs.readRawString(0).replaceAll("\uFFFD", ""));
+						tmp.setFecha(fs.readRawString(1));
+						tmp.setDireccion(fs.readRawString(2));
+
+
 						return tmp;
 					}
 				}).build();
@@ -90,9 +95,13 @@ public class BatchConfiguration {
 
 		Step step1 =  new StepBuilder("step1", jobRepository)
 				.<CuentasClientesOld, CuentasClientesNew>chunk(10, transactionManager).reader(reader())
-				.processor(processor()).writer(writer).build();
+				.processor(processor())
+				.writer(writer)
+				.faultTolerant()
+				.skip(FlatFileParseException.class)
+				.skipLimit(10)
+				.build();
 
 		return step1;
 	}
-
 }

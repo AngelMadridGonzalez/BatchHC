@@ -6,6 +6,8 @@ import org.springframework.batch.item.ItemProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.nio.charset.StandardCharsets;
+
 public class CuentasClientesItemProcessor implements ItemProcessor<CuentasClientesOld, CuentasClientesNew> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CuentasClientesItemProcessor.class);
@@ -39,15 +41,12 @@ public class CuentasClientesItemProcessor implements ItemProcessor<CuentasClient
          */
           
         //FIX Add correct Values
-        cuentasClientesNew.setId(0);
+        cuentasClientesNew.setId(Integer.parseInt(new String(cuentasClientesOld.getIdCliente().getBytes(), StandardCharsets.UTF_8)));
         cuentasClientesNew.setIdTicketCobro(0);
         cuentasClientesNew.setTarjeta(null);
         cuentasClientesNew.setImporte(0);
         cuentasClientesNew.setEstado(0);
 
-        String value = new String(cuentasClientesOld.getIdCliente().getBytes(), "UTF-8");
-
-        cuentasClientesNew.setIdCliente(Integer.parseInt(value));
         LOGGER.info("**************  Converting ( {} ) into ( {} )", cuentasClientesOld, cuentasClientesNew);
 
         return cuentasClientesNew;
