@@ -48,17 +48,6 @@ public class BatchConfiguration {
 					{
 						this.setTargetType(CuentasClientesOld.class);
 					}
-//					@Override
-//					public CuentasClientesOld mapFieldSet(FieldSet fs) throws BindException {
-//
-//						CuentasClientesOld tmp= super.mapFieldSet(fs);
-//						tmp.setIdCliente(fs.readRawString(0).replaceAll("\uFFFD", ""));
-//						tmp.setFecha(fs.readRawString(1));
-//						tmp.setDireccion(fs.readRawString(2));
-//
-//
-//						return tmp;
-//					}
 				})
 				.build();
 
@@ -77,7 +66,7 @@ public class BatchConfiguration {
 		return new JdbcBatchItemWriterBuilder<CuentasClientesNew>()
 				.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
 				// FIXME Aqui metemos la query
-				.sql("INSERT INTO CuentasClientesNew (id, idCliente, idTicketCobro, tarjeta, importe, estado) VALUES (:id, :idCliente, :idTicketCobro, :tarjeta, :importe, :estado)")
+				.sql("INSERT INTO CuentasClientesNew (idCliente) VALUES (:idCliente)")
 				.dataSource(dataSource).build();
 	}
 

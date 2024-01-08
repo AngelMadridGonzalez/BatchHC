@@ -1,5 +1,6 @@
 package org.hc;
 
+import org.hc.model.out.CuentasClientesNew;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.BatchStatus;
@@ -26,9 +27,9 @@ public class JobCompletionNotificationListener implements JobExecutionListener {
         if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
             LOGGER.info("!!! JOB FINISHED! Time to verify the results");
 
-//            String query = "SELECT brand, origin, characteristics FROM coffee";
-//            jdbcTemplate.query(query, (rs, row) -> new Coffee(rs.getString(1), rs.getString(2), rs.getString(3)))
-//                .forEach(coffee -> LOGGER.info("Found < {} > in the database.", coffee));
+            String query = "SELECT *  FROM CuentasClientesNew";
+            jdbcTemplate.query(query, (rs, row) -> new CuentasClientesNew())
+                    .forEach(cuentasClientesNew -> LOGGER.info("Found < {} > in the database.", cuentasClientesNew.getId()));
         }
     }
 }

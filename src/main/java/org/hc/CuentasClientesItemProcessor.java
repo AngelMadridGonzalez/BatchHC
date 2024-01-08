@@ -37,11 +37,17 @@ public class CuentasClientesItemProcessor implements ItemProcessor<CuentasClient
          */
         
         /**
-         * Unificar las 3 tablas en 1 tabla auxiliar y luego montar otro batch para insertar
+         * Unificar las 3 tablas en 1 tabla
          */
-          
+
+        /**
+         * Step 1 Insert Tabla CuentasClientesNew con cuentasClientesOld (job 1 y writerCuentasClientesNew)
+         * Step 2 Update Tabla CuentasClientesNew con cuentasClientesLineasOld (job 2 y writercuentasClientesLineasOld)
+         * Step 3 Update Tabla CuentasClientesNew con ticketcobtos (job 3 y writerticketcobtos)
+         */
+
         //FIX Add correct Values
-        cuentasClientesNew.setId(Integer.parseInt(cuentasClientesOld.getIdCliente()));
+        cuentasClientesNew.setIdCliente(Integer.parseInt(cuentasClientesOld.getIdCliente()));
         cuentasClientesNew.setIdTicketCobro(0);
         cuentasClientesNew.setTarjeta(null);
         cuentasClientesNew.setImporte(0);
