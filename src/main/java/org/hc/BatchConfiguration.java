@@ -2,7 +2,9 @@ package org.hc;
 
 import javax.sql.DataSource;
 
+import org.hc.model.in.CuentasClientesLineasOld;
 import org.hc.model.in.CuentasClientesOld;
+import org.hc.model.in.TicketCobrosOld;
 import org.hc.model.out.CuentasClientesNew;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,15 +34,20 @@ public class BatchConfiguration {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BatchConfiguration.class);
 
-	@Value("${file.input}")
-	private String fileInput;
+	@Value("${file.cuentasClientes}")
+	private String fileInputCuentasCliente;
+	@Value("${file.cuentasclienteslineas}")
+	private String fileCuentasclienteslineas;
+	@Value("${file.ticketcobros}")
+	private String fileTicketcobros;
 
 	@Bean
-	public FlatFileItemReader<CuentasClientesOld> reader() {
-		LOGGER.info("*******INI reader *******");
+	public FlatFileItemReader<CuentasClientesOld> readerCuentasCliente() {
+		LOGGER.info("*******INI readerCuentasCliente *******");
 		FlatFileItemReader<CuentasClientesOld> reader = new FlatFileItemReaderBuilder<CuentasClientesOld>()
 				.name("cuentasClientesOldItemReader")
-				.resource(new ClassPathResource("cuentasclientes.csv"))
+//				.resource(new ClassPathResource("cuentasclientes.csv"))
+				.resource(new ClassPathResource(fileInputCuentasCliente))
 				.delimited()
 				.names(new String[] { "lnk_idcliente", "direccion", "fecha" })
 				.encoding("ISO_8859_1")
@@ -56,43 +63,93 @@ public class BatchConfiguration {
 	}
 
 	@Bean
-	public CuentasClientesItemProcessor processor() {
-		return new CuentasClientesItemProcessor();
+	public FlatFileItemReader<CuentasClientesLineasOld> readerCuentasClienteLineas() {
+		LOGGER.info("*******INI readerCuentasClienteLineas *******");
+		FlatFileItemReader<CuentasClientesLineasOld> reader = new FlatFileItemReaderBuilder<CuentasClientesLineasOld>()
+				.name("cuentasClientesOldItemReader")
+				.resource(new ClassPathResource(fileCuentasclienteslineas))
+				.delimited()
+				.names(new String[] { "trial_lnk_idcliente_1","fecha","lnk_idtipcobros","importe","descripcion" })
+				.encoding("ISO_8859_1")
+				.fieldSetMapper(new BeanWrapperFieldSetMapper<CuentasClientesLineasOld>() {
+					{
+						this.setTargetType(CuentasClientesLineasOld.class);
+					}
+				})
+				.build();
+
+		LOGGER.info("******* END reader *******");
+		return reader;
 	}
 
 	@Bean
-	public JdbcBatchItemWriter<CuentasClientesNew> writer(DataSource dataSource) {
+	public FlatFileItemReader<TicketCobrosOld> readerTicketCobrosOld() {
+		LOGGER.info("*******INI readerTicketCobrosOld *******");
+		FlatFileItemReader<TicketCobrosOld> reader = new FlatFileItemReaderBuilder<TicketCobrosOld>()
+				.name("TicketCobrosOldReader")
+				.resource(new ClassPathResource(fileTicketcobros))
+				.delimited()
+				.names(new String[] { "trial_lnk_idreserva_1","lnk_idtipcobros","numticket","trial_importe_4","fecha","fechapago","lnk_idtipcobrospago" })
+				.encoding("ISO_8859_1")
+				.fieldSetMapper(new BeanWrapperFieldSetMapper<TicketCobrosOld>() {
+					{
+						this.setTargetType(TicketCobrosOld.class);
+					}
+				})
+				.build();
+
+		LOGGER.info("******* END reader *******");
+		return reader;
+	}
+
+	@Bean
+	public CuentasClientesOldItemProcessor cuentasClientesItemProcessor() {
+		return new CuentasClientesOldItemProcessor();
+	}
+
+	@Bean
+	public CuentasClientesLineasOldItemProcessor cuentasClientesLineasOldItemProcessor() {
+		return new CuentasClientesLineasOldItemProcessor();
+	}
+
+	@Bean
+	public TicketCobrosOldItemProcessor ticketCobrosOldItemProcessor() {
+		return new TicketCobrosOldItemProcessor();
+	}
+
+
+	@Bean
+	public JdbcBatchItemWriter<CuentasClientesNew> writerCuentasCliente(DataSource dataSource) {
 		LOGGER.info("*******INI JdbcBatchItemWriter *******");
 		return new JdbcBatchItemWriterBuilder<CuentasClientesNew>()
 				.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-				// FIXME Aqui metemos la query
 				.sql("INSERT INTO CuentasClientesNew (idCliente) VALUES (:idCliente)")
 				.dataSource(dataSource).build();
 	}
 
 	@Bean
-	public Job importUserJob(JobRepository jobRepository, JobCompletionNotificationListener listener, Step step1) {
+	public Job importUserJob(JobRepository jobRepository, JobCompletionNotificationListener listener, Step stepCuentasCliente) {
 		LOGGER.info("*******INI importUserJob *******");
 		return new JobBuilder("importUserJob", jobRepository).incrementer(new RunIdIncrementer()).listener(listener)
-				.flow(step1).end().build();
+				.flow(stepCuentasCliente).end().build();
 	}
 
 	@Bean
-	public Step step1(JobRepository jobRepository, PlatformTransactionManager transactionManager,
-			JdbcBatchItemWriter<CuentasClientesNew> writer) {
-		LOGGER.info("*******INI step1 *******");
+	public Step stepCuentasCliente(JobRepository jobRepository, PlatformTransactionManager transactionManager,
+			JdbcBatchItemWriter<CuentasClientesNew> writerCuentasCliente) {
+		LOGGER.info("*******INI stepCuentasCliente *******");
 		LOGGER.info("**************  jobRepository ( {} ) transactionManager ( {} ) writer ( {} ) ",
-				jobRepository, transactionManager, writer);
+				jobRepository, transactionManager, writerCuentasCliente);
 
-		Step step1 =  new StepBuilder("step1", jobRepository)
-				.<CuentasClientesOld, CuentasClientesNew>chunk(10, transactionManager).reader(reader())
-				.processor(processor())
-				.writer(writer)
+		Step stepCuentasCliente =  new StepBuilder("step1", jobRepository)
+				.<CuentasClientesOld, CuentasClientesNew>chunk(10, transactionManager).reader(readerCuentasCliente())
+				.processor(cuentasClientesItemProcessor())
+				.writer(writerCuentasCliente)
 				.faultTolerant()
 				.skip(FlatFileParseException.class)
 				.skipLimit(10)
 				.build();
 
-		return step1;
+		return stepCuentasCliente;
 	}
 }

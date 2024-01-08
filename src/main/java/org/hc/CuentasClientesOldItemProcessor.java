@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 
-public class CuentasClientesItemProcessor implements ItemProcessor<CuentasClientesOld, CuentasClientesNew> {
+public class CuentasClientesOldItemProcessor implements ItemProcessor<CuentasClientesOld, CuentasClientesNew> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CuentasClientesItemProcessor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CuentasClientesOldItemProcessor.class);
 
 	@Override
 	public CuentasClientesNew process(CuentasClientesOld cuentasClientesOld) throws Exception {
