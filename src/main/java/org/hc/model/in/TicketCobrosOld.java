@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 
 public class TicketCobrosOld {
 
-	private int idReserva;
+	private String idReserva;
 
-	private int idTipoCobros;
+	private String idTipoCobros;
 	
-	private int numTicket;
+	private String numTicket;
 	
 	private BigDecimal importe;
 	
@@ -18,27 +18,27 @@ public class TicketCobrosOld {
 	
 	private String idTipoCobrosPago;
 
-	public int getIdReserva() {
+	public String getIdReserva() {
 		return idReserva;
 	}
 
-	public void setIdReserva(int idReserva) {
+	public void setIdReserva(String idReserva) {
 		this.idReserva = idReserva;
 	}
 
-	public int getIdTipoCobros() {
+	public String getIdTipoCobros() {
 		return idTipoCobros;
 	}
 
-	public void setIdTipoCobros(int idTipoCobros) {
+	public void setIdTipoCobros(String idTipoCobros) {
 		this.idTipoCobros = idTipoCobros;
 	}
 
-	public int getNumTicket() {
+	public String getNumTicket() {
 		return numTicket;
 	}
 
-	public void setNumTicket(int numTicket) {
+	public void setNumTicket(String numTicket) {
 		this.numTicket = numTicket;
 	}
 
@@ -74,7 +74,7 @@ public class TicketCobrosOld {
 		this.idTipoCobrosPago = idTipoCobrosPago;
 	}
 
-	public TicketCobrosOld(int idReserva, int idTipoCobros, int numTicket, BigDecimal importe, String fecha,
+	public TicketCobrosOld(String idReserva, String idTipoCobros, String numTicket, BigDecimal importe, String fecha,
 			String fechaPago, String idTipoCobrosPago) {
 		super();
 		this.idReserva = idReserva;

@@ -1,12 +1,10 @@
-package org.hc;
+package org.hc.processors;
 
 import org.hc.model.in.CuentasClientesOld;
 import org.hc.model.out.CuentasClientesNew;
 import org.springframework.batch.item.ItemProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.nio.charset.StandardCharsets;
 
 public class CuentasClientesOldItemProcessor implements ItemProcessor<CuentasClientesOld, CuentasClientesNew> {
 
@@ -46,12 +44,9 @@ public class CuentasClientesOldItemProcessor implements ItemProcessor<CuentasCli
          * Step 3 Update Tabla CuentasClientesNew con ticketcobtos (job 3 y writerticketcobtos)
          */
 
-        //FIX Add correct Values
-        cuentasClientesNew.setIdCliente(Integer.parseInt(cuentasClientesOld.getIdCliente()));
-        cuentasClientesNew.setIdTicketCobro(0);
-        cuentasClientesNew.setTarjeta(null);
-        cuentasClientesNew.setImporte(0);
-        cuentasClientesNew.setEstado(0);
+        cuentasClientesNew.setIdCliente(cuentasClientesOld.getIdCliente());
+        //cuentasClientesOld.setDireccion();
+        //cuentasClientesOld.setFecha();
 
         LOGGER.info("**************  Converting ( {} ) into ( {} )", cuentasClientesOld, cuentasClientesNew);
 

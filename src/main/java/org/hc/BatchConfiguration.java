@@ -6,6 +6,9 @@ import org.hc.model.in.CuentasClientesLineasOld;
 import org.hc.model.in.CuentasClientesOld;
 import org.hc.model.in.TicketCobrosOld;
 import org.hc.model.out.CuentasClientesNew;
+import org.hc.processors.CuentasClientesLineasOldItemProcessor;
+import org.hc.processors.CuentasClientesOldItemProcessor;
+import org.hc.processors.TicketCobrosOldItemProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
@@ -21,13 +24,11 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.FlatFileParseException;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
-import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.validation.BindException;
 
 @Configuration
 public class BatchConfiguration {

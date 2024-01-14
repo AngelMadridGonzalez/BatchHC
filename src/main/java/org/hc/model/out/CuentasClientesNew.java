@@ -1,16 +1,18 @@
 package org.hc.model.out;
 
+import java.math.BigDecimal;
+
 public class CuentasClientesNew {
 
 	private int id;
 	
-	private int idCliente;
+	private String idCliente;
 	
 	private int idTicketCobro;
 	
 	private String tarjeta;
 
-	private int importe;
+	private BigDecimal importe;
 	
 	private int estado;
 
@@ -18,7 +20,7 @@ public class CuentasClientesNew {
 		super();
 	}
 	
-	public CuentasClientesNew(int id, int idCliente, int idTicketCobro, String tarjeta, int importe, int estado) {
+	public CuentasClientesNew(int id, String idCliente, int idTicketCobro, String tarjeta, BigDecimal importe, int estado) {
 		super();
 		this.id = id;
 		this.idCliente = idCliente;
@@ -36,11 +38,11 @@ public class CuentasClientesNew {
 		this.id = id;
 	}
 
-	public int getIdCliente() {
+	public String getIdCliente() {
 		return idCliente;
 	}
 
-	public void setIdCliente(int idCliente) {
+	public void setIdCliente(String idCliente) {
 		this.idCliente = idCliente;
 	}
 
@@ -60,11 +62,11 @@ public class CuentasClientesNew {
 		this.tarjeta = tarjeta;
 	}
 
-	public int getImporte() {
+	public BigDecimal getImporte() {
 		return importe;
 	}
 
-	public void setImporte(int importe) {
+	public void setImporte(BigDecimal importe) {
 		this.importe = importe;
 	}
 

@@ -1,7 +1,6 @@
-package org.hc;
+package org.hc.processors;
 
 import org.hc.model.in.CuentasClientesLineasOld;
-import org.hc.model.in.CuentasClientesOld;
 import org.hc.model.out.CuentasClientesNew;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +13,14 @@ public class CuentasClientesLineasOldItemProcessor implements ItemProcessor<Cuen
 	@Override
 	public CuentasClientesNew process(CuentasClientesLineasOld cuentasClientesLineasOld) throws Exception {
 
-        return null;
+		CuentasClientesNew cuentasClientesNew = new CuentasClientesNew();
+
+		cuentasClientesNew.setIdCliente(cuentasClientesLineasOld.getIdCliente());
+		//cuentasClientesLineasOld.setFecha();
+		//cuentasClientesLineasOld.setIdTipoCobros();
+		cuentasClientesNew.setImporte(cuentasClientesLineasOld.getImporte());
+		//cuentasClientesLineasOld.setDescripcion();
+
+        return cuentasClientesNew;
 	}
 }

@@ -4,21 +4,21 @@ import java.math.BigDecimal;
 
 public class CuentasClientesLineasOld {
 
-	private int idCliente;
+	private String idCliente;
 	
 	private String fecha;
 	
-	private int idTipoCobros;
+	private String idTipoCobros;
 	
 	private BigDecimal importe;
 	
 	private String descripcion;
 
-	public int getIdCliente() {
+	public String getIdCliente() {
 		return idCliente;
 	}
 
-	public void setIdCliente(int idCliente) {
+	public void setIdCliente(String idCliente) {
 		this.idCliente = idCliente;
 	}
 
@@ -30,11 +30,11 @@ public class CuentasClientesLineasOld {
 		this.fecha = fecha;
 	}
 
-	public int getIdTipoCobros() {
+	public String getIdTipoCobros() {
 		return idTipoCobros;
 	}
 
-	public void setIdTipoCobros(int idTipoCobros) {
+	public void setIdTipoCobros(String idTipoCobros) {
 		this.idTipoCobros = idTipoCobros;
 	}
 
@@ -54,7 +54,7 @@ public class CuentasClientesLineasOld {
 		this.descripcion = descripcion;
 	}
 
-	public CuentasClientesLineasOld(int idCliente, String fecha, int idTipoCobros, BigDecimal importe,
+	public CuentasClientesLineasOld(String idCliente, String fecha, String idTipoCobros, BigDecimal importe,
 			String descripcion) {
 		super();
 		this.idCliente = idCliente;

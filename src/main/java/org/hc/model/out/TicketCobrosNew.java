@@ -6,11 +6,11 @@ public class TicketCobrosNew {
 
 	private int id;
 	
-	private int idTipoCobro;
+	private String idTipoCobro;
 	
-	private int numeroTicket;
+	private String numeroTicket;
 	
-	private int idOcupacion;
+	private String idOcupacion;
 
 	private BigDecimal importe;
 
@@ -25,7 +25,7 @@ public class TicketCobrosNew {
 
 	}
 	
-	public TicketCobrosNew(int id, int idTipoCobro, int numeroTicket, int idOcupacion, BigDecimal importe,
+	public TicketCobrosNew(int id, String idTipoCobro, String numeroTicket, String idOcupacion, BigDecimal importe,
 			String cobrado, String fechaPago, String observacion) {
 		super();
 		this.id = id;
@@ -46,27 +46,27 @@ public class TicketCobrosNew {
 		this.id = id;
 	}
 
-	public int getIdTipoCobro() {
+	public String getIdTipoCobro() {
 		return idTipoCobro;
 	}
 
-	public void setIdTipoCobro(int idTipoCobro) {
+	public void setIdTipoCobro(String idTipoCobro) {
 		this.idTipoCobro = idTipoCobro;
 	}
 
-	public int getNumeroTicket() {
+	public String getNumeroTicket() {
 		return numeroTicket;
 	}
 
-	public void setNumeroTicket(int numeroTicket) {
+	public void setNumeroTicket(String numeroTicket) {
 		this.numeroTicket = numeroTicket;
 	}
 
-	public int getIdOcupacion() {
+	public String getIdOcupacion() {
 		return idOcupacion;
 	}
 
-	public void setIdOcupacion(int idOcupacion) {
+	public void setIdOcupacion(String idOcupacion) {
 		this.idOcupacion = idOcupacion;
 	}
 
