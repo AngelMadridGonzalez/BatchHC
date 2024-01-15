@@ -6,6 +6,7 @@ import org.hc.model.in.CuentasClientesLineasOld;
 import org.hc.model.in.CuentasClientesOld;
 import org.hc.model.in.TicketCobrosOld;
 import org.hc.model.out.CuentasClientesNew;
+import org.hc.model.out.TicketCobrosNew;
 import org.hc.processors.CuentasClientesLineasOldItemProcessor;
 import org.hc.processors.CuentasClientesOldItemProcessor;
 import org.hc.processors.TicketCobrosOldItemProcessor;
@@ -67,7 +68,7 @@ public class BatchConfiguration {
 	public FlatFileItemReader<CuentasClientesLineasOld> readerCuentasClienteLineas() {
 		LOGGER.info("*******INI readerCuentasClienteLineas *******");
 		FlatFileItemReader<CuentasClientesLineasOld> reader = new FlatFileItemReaderBuilder<CuentasClientesLineasOld>()
-				.name("cuentasClientesOldItemReader")
+				.name("cuentasClientesLineasOldItemReader")
 				.resource(new ClassPathResource(fileCuentasclienteslineas))
 				.delimited()
 				.names(new String[] { "trial_lnk_idcliente_1","fecha","lnk_idtipcobros","importe","descripcion" })
@@ -129,20 +130,26 @@ public class BatchConfiguration {
 	}
 
 	@Bean
-	public Job importUserJob(JobRepository jobRepository, JobCompletionNotificationListener listener, Step stepCuentasCliente) {
+	public JdbcBatchItemWriter<TicketCobrosNew> writerTicketCobros(DataSource dataSource) {
+		LOGGER.info("*******INI JdbcBatchItemWriter *******");
+		return new JdbcBatchItemWriterBuilder<TicketCobrosNew>()
+				.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
+				.sql("INSERT INTO TicketCobrosNew (idCliente) VALUES (:idCliente)")
+				.dataSource(dataSource).build();
+	}
+
+	@Bean
+	public Job importUserJob(JobRepository jobRepository, JobCompletionNotificationListener listener, Step stepCuentasCliente, Step stepCuentasClientesLineas) {
 		LOGGER.info("*******INI importUserJob *******");
 		return new JobBuilder("importUserJob", jobRepository).incrementer(new RunIdIncrementer()).listener(listener)
-				.flow(stepCuentasCliente).end().build();
+				.start(stepCuentasCliente).next(stepCuentasClientesLineas).build();
 	}
 
 	@Bean
 	public Step stepCuentasCliente(JobRepository jobRepository, PlatformTransactionManager transactionManager,
 			JdbcBatchItemWriter<CuentasClientesNew> writerCuentasCliente) {
 		LOGGER.info("*******INI stepCuentasCliente *******");
-		LOGGER.info("**************  jobRepository ( {} ) transactionManager ( {} ) writer ( {} ) ",
-				jobRepository, transactionManager, writerCuentasCliente);
-
-		Step stepCuentasCliente =  new StepBuilder("step1", jobRepository)
+		Step stepCuentasCliente =  new StepBuilder("stepCuentasCliente", jobRepository)
 				.<CuentasClientesOld, CuentasClientesNew>chunk(10, transactionManager).reader(readerCuentasCliente())
 				.processor(cuentasClientesItemProcessor())
 				.writer(writerCuentasCliente)
@@ -150,7 +157,34 @@ public class BatchConfiguration {
 				.skip(FlatFileParseException.class)
 				.skipLimit(10)
 				.build();
-
 		return stepCuentasCliente;
+	}
+	@Bean
+	public Step stepCuentasClientesLineas(JobRepository jobRepository, PlatformTransactionManager transactionManager,
+								   JdbcBatchItemWriter<CuentasClientesNew> writerCuentasCliente) {
+		LOGGER.info("*******INI stepCuentasClientesLineas *******");
+		Step stepCuentasClientesLineas =  new StepBuilder("stepCuentasClientesLineas", jobRepository)
+				.<CuentasClientesLineasOld, CuentasClientesNew>chunk(10, transactionManager).reader(readerCuentasClienteLineas())
+				.processor(cuentasClientesLineasOldItemProcessor())
+				.writer(writerCuentasCliente)
+				.faultTolerant()
+				.skip(FlatFileParseException.class)
+				.skipLimit(10)
+				.build();
+		return stepCuentasClientesLineas;
+	}
+	@Bean
+	public Step stepTicketCobros(JobRepository jobRepository, PlatformTransactionManager transactionManager,
+										  JdbcBatchItemWriter<TicketCobrosNew> writerTicketCobros) {
+		LOGGER.info("*******INI stepCuentasClientesLineas *******");
+		Step stepTicketCobros =  new StepBuilder("stepTicketCobros", jobRepository)
+				.<TicketCobrosOld, TicketCobrosNew>chunk(10, transactionManager).reader(readerTicketCobrosOld())
+				.processor(ticketCobrosOldItemProcessor())
+				.writer(writerTicketCobros)
+				.faultTolerant()
+				.skip(FlatFileParseException.class)
+				.skipLimit(10)
+				.build();
+		return stepTicketCobros;
 	}
 }
