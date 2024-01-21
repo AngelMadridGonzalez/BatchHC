@@ -48,7 +48,6 @@ public class BatchConfiguration {
 		LOGGER.info("*******INI readerCuentasCliente *******");
 		FlatFileItemReader<CuentasClientesOld> reader = new FlatFileItemReaderBuilder<CuentasClientesOld>()
 				.name("cuentasClientesOldItemReader")
-//				.resource(new ClassPathResource("cuentasclientes.csv"))
 				.resource(new ClassPathResource(fileInputCuentasCliente))
 				.delimited()
 				.names(new String[] { "lnk_idcliente", "direccion", "fecha" })
@@ -71,7 +70,7 @@ public class BatchConfiguration {
 				.name("cuentasClientesLineasOldItemReader")
 				.resource(new ClassPathResource(fileCuentasclienteslineas))
 				.delimited()
-				.names(new String[] { "trial_lnk_idcliente_1","fecha","lnk_idtipcobros","importe","descripcion" })
+				.names(new String[] { "idCliente","fecha","idTipoCobros","importe","descripcion" })
 				.encoding("ISO_8859_1")
 				.fieldSetMapper(new BeanWrapperFieldSetMapper<CuentasClientesLineasOld>() {
 					{
@@ -91,7 +90,7 @@ public class BatchConfiguration {
 				.name("TicketCobrosOldReader")
 				.resource(new ClassPathResource(fileTicketcobros))
 				.delimited()
-				.names(new String[] { "trial_lnk_idreserva_1","lnk_idtipcobros","numticket","trial_importe_4","fecha","fechapago","lnk_idtipcobrospago" })
+				.names(new String[] { "idReserva","idTipoCobros","numTicket","importe","fecha","fechaPago","idTipoCobrosPago" })
 				.encoding("ISO_8859_1")
 				.fieldSetMapper(new BeanWrapperFieldSetMapper<TicketCobrosOld>() {
 					{
@@ -134,15 +133,15 @@ public class BatchConfiguration {
 		LOGGER.info("*******INI JdbcBatchItemWriter *******");
 		return new JdbcBatchItemWriterBuilder<TicketCobrosNew>()
 				.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-				.sql("INSERT INTO TicketCobrosNew (idCliente) VALUES (:idCliente)")
+				.sql("INSERT INTO TicketCobrosNew (idOcupacion) VALUES (:idOcupacion)")
 				.dataSource(dataSource).build();
 	}
 
 	@Bean
-	public Job importUserJob(JobRepository jobRepository, JobCompletionNotificationListener listener, Step stepCuentasCliente, Step stepCuentasClientesLineas) {
+	public Job importUserJob(JobRepository jobRepository, JobCompletionNotificationListener listener, Step stepCuentasCliente, Step stepCuentasClientesLineas, Step stepTicketCobros) {
 		LOGGER.info("*******INI importUserJob *******");
 		return new JobBuilder("importUserJob", jobRepository).incrementer(new RunIdIncrementer()).listener(listener)
-				.start(stepCuentasCliente).next(stepCuentasClientesLineas).build();
+				.start(stepCuentasCliente).next(stepCuentasClientesLineas).next(stepTicketCobros).build();
 	}
 
 	@Bean
@@ -176,7 +175,7 @@ public class BatchConfiguration {
 	@Bean
 	public Step stepTicketCobros(JobRepository jobRepository, PlatformTransactionManager transactionManager,
 										  JdbcBatchItemWriter<TicketCobrosNew> writerTicketCobros) {
-		LOGGER.info("*******INI stepCuentasClientesLineas *******");
+		LOGGER.info("*******INI stepTicketCobros *******");
 		Step stepTicketCobros =  new StepBuilder("stepTicketCobros", jobRepository)
 				.<TicketCobrosOld, TicketCobrosNew>chunk(10, transactionManager).reader(readerTicketCobrosOld())
 				.processor(ticketCobrosOldItemProcessor())

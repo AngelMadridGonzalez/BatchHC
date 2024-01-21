@@ -21,6 +21,8 @@ public class CuentasClientesLineasOldItemProcessor implements ItemProcessor<Cuen
 		cuentasClientesNew.setImporte(cuentasClientesLineasOld.getImporte());
 		//cuentasClientesLineasOld.setDescripcion();
 
-        return cuentasClientesNew;
+		LOGGER.info("**************  Converting ( {} ) into ( {} )", cuentasClientesLineasOld, cuentasClientesNew);
+
+		return cuentasClientesNew;
 	}
 }

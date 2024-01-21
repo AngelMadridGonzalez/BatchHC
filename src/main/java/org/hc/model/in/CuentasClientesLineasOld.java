@@ -63,4 +63,8 @@ public class CuentasClientesLineasOld {
 		this.importe = importe;
 		this.descripcion = descripcion;
 	}
+
+	public CuentasClientesLineasOld() {
+		super();
+	}
 }

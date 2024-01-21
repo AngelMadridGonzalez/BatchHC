@@ -85,4 +85,8 @@ public class TicketCobrosOld {
 		this.fechaPago = fechaPago;
 		this.idTipoCobrosPago = idTipoCobrosPago;
 	}
+
+	public TicketCobrosOld() {
+		super();
+	}
 }
