@@ -1,6 +1,5 @@
 package org.hc;
 
-import org.hc.v2.BatchProgram;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;

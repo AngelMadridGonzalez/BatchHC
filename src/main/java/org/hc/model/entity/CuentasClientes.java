@@ -3,12 +3,9 @@ package org.hc.model.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-
 @Entity
 public class CuentasClientes {
-
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
 	private String idCliente;

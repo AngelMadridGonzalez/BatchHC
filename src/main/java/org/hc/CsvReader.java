@@ -1,4 +1,4 @@
-package org.hc.v2;
+package org.hc;
 
 import com.opencsv.CSVReader;
 import org.springframework.stereotype.Component;
