@@ -1,4 +1,4 @@
-package org.hc;
+package org.hc.model;
 
 public class CuentaCliente {
 
