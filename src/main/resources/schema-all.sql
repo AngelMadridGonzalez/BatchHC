@@ -1,23 +1,10 @@
-DROP TABLE CuentasClientesNew IF EXISTS;
+DROP TABLE CuentasClientes;
 
-CREATE TABLE CuentasClientesNew  (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    idCliente VARCHAR(20),
-    idTicketCobro VARCHAR(20),
-    tarjeta VARCHAR(30),
-    importe VARCHAR(30),
-    estado VARCHAR(30)
-);
-
-DROP TABLE TicketCobrosNew IF EXISTS;
-
-CREATE TABLE TicketCobrosNew  (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    idCliente VARCHAR(20),
-    numeroTicket VARCHAR(20),
-    idOcupacion VARCHAR(30),
-    importe VARCHAR(30),
-    cobrado VARCHAR(30),
-    fechaPago VARCHAR(30),
-    observacion VARCHAR(30)
-);
+CREATE TABLE IF NOT EXISTS CuentasClientes (
+    id          		INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
+    idCliente        	INTEGER NOT NULL,
+    idTicketCobro   	INTEGER NOT NULL,
+    tarjeta  		TEXT NOT NULL,
+    importe		INTEGER DEFAULT (0) NOT NULL,
+    estado		INTEGER DEFAULT (0) NOT NULL
+)

@@ -1,26 +1,31 @@
-package org.hc.model.out;
+package org.hc.model.entity;
+
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
-public class CuentasClientesNew {
+@Entity
+public class CuentasClientes {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	
+
 	private String idCliente;
-	
+
 	private int idTicketCobro;
-	
+
 	private String tarjeta;
 
 	private BigDecimal importe;
-	
+
 	private int estado;
 
-	public CuentasClientesNew() {
+	public CuentasClientes() {
 		super();
 	}
 	
-	public CuentasClientesNew(int id, String idCliente, int idTicketCobro, String tarjeta, BigDecimal importe, int estado) {
+	public CuentasClientes(int id, String idCliente, int idTicketCobro, String tarjeta, BigDecimal importe, int estado) {
 		super();
 		this.id = id;
 		this.idCliente = idCliente;
@@ -77,6 +82,4 @@ public class CuentasClientesNew {
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
-	
-	
 }

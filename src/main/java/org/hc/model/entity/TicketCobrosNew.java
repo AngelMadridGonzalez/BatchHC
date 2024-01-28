@@ -1,4 +1,4 @@
-package org.hc.model.out;
+package org.hc.model.entity;
 
 import java.math.BigDecimal;
 
