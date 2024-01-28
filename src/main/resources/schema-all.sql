@@ -3,8 +3,8 @@ DROP TABLE CuentasClientes;
 CREATE TABLE IF NOT EXISTS CuentasClientes (
     id          		INTEGER PRIMARY KEY UNIQUE NOT NULL,
     idCliente        	INTEGER NOT NULL,
-    idTicketCobro   	INTEGER NOT NULL,
-    tarjeta  		TEXT NOT NULL,
-    importe		INTEGER DEFAULT (0) NOT NULL,
-    estado		INTEGER DEFAULT (0) NOT NULL
+    idTicketCobro   	INTEGER,
+    tarjeta  		TEXT,
+    importe		INTEGER DEFAULT (0),
+    estado		INTEGER DEFAULT (0)
 )
