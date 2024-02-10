@@ -1,7 +1,7 @@
 package org.hc.model;
 
 import java.math.BigDecimal;
-public class TicketCobros {
+public class TicketCobro {
 
     int idReserva;
     int idTipoCobro;
@@ -11,11 +11,11 @@ public class TicketCobros {
     String fechaPago;
     String observacion;
 
-    public TicketCobros() {
+    public TicketCobro() {
         super();
     }
 
-    public TicketCobros(int idReserva, int idTipoCobro, int numeroTicket, BigDecimal importe, String cobrado, String fechaPago, String observacion) {
+    public TicketCobro(int idReserva, int idTipoCobro, int numeroTicket, BigDecimal importe, String cobrado, String fechaPago, String observacion) {
         this.idReserva = idReserva;
         this.idTipoCobro = idTipoCobro;
         this.numeroTicket = numeroTicket;

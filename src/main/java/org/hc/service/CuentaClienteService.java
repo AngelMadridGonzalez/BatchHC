@@ -2,7 +2,6 @@ package org.hc.service;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hc.model.CuentaCliente;
-import org.hc.model.TicketCobros;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -16,9 +15,9 @@ import java.sql.PreparedStatement;
 
 public class CuentaClienteService {
 
-    public static void cuentasClientes () throws IOException {
+    public static void CuentasClientes () throws IOException {
         // Ruta al archivo CSV
-        String filePath = "cuentasclientes.csv";
+        String filePath = "csv/cuentasclientes.csv";
 
         // Crea un objeto Resource usando ClassPathResource
         Resource resource = new ClassPathResource(filePath);
@@ -52,10 +51,10 @@ public class CuentaClienteService {
     }
 
 
-    public static void cuentasClientesLineas () throws IOException {
+    public static void CuentasClientesLineas () throws IOException {
 
         // Ruta al archivo CSV
-        String filePath = "cuentasclienteslineas.csv";
+        String filePath = "csv/cuentasclienteslineas.csv";
 
         // Crea un objeto Resource usando ClassPathResource
         Resource resource = new ClassPathResource(filePath);
@@ -86,50 +85,6 @@ public class CuentaClienteService {
                     preparedStatement.setString(3, String.valueOf(cuentaCliente.getIdTicketCobro()));
                     preparedStatement.setString(4, String.valueOf(cuentaCliente.getImporte()));
                     preparedStatement.setString(5, cuentaCliente.getIdCliente());
-
-                    preparedStatement.executeUpdate();
-                }
-            }
-            connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void ticketCobros () throws IOException {
-        // Ruta al archivo CSV
-        String filePath = "ticketcobros.csv";
-
-        // Crea un objeto Resource usando ClassPathResource
-        Resource resource = new ClassPathResource(filePath);
-        java.io.File file = resource.getFile();
-
-        String line;
-        String cvsSplitBy = ",";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/migration.db");
-            String queryInsert = "INSERT INTO TicketCobros (idReserva, idTipoCobro, numeroTicket, importe, fechaPago) VALUES ( ?, ?, ?, ?, ?)"; // Ajustamos la query
-
-            while ((line = br.readLine()) != null) {
-                String[] datos = line.split(cvsSplitBy);
-
-                TicketCobros ticketCobros = new TicketCobros(); // Ajusta según tus campos
-                ticketCobros.setIdReserva(Integer.parseInt(datos[0]));
-                ticketCobros.setIdTipoCobro(Integer.parseInt(datos[1]));
-                ticketCobros.setNumeroTicket(Integer.parseInt(datos[2]));
-                if(!StringUtils.isBlank(datos[3])){
-                    ticketCobros.setImporte(new BigDecimal(datos[3]));
-                }
-                ticketCobros.setFechaPago(datos[4]);
-
-                try (PreparedStatement preparedStatement = connection.prepareStatement(queryInsert)) {
-
-                    preparedStatement.setString(1, String.valueOf(ticketCobros.getIdReserva()));
-                    preparedStatement.setString(2, String.valueOf(ticketCobros.getIdTipoCobro()));
-                    preparedStatement.setString(3, String.valueOf(ticketCobros.getNumeroTicket()));
-                    preparedStatement.setString(4, String.valueOf(ticketCobros.getImporte()));
-                    preparedStatement.setString(5, ticketCobros.getFechaPago());
 
                     preparedStatement.executeUpdate();
                 }
