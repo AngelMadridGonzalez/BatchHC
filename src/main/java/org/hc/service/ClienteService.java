@@ -28,6 +28,8 @@ public class ClienteService {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/migration.db");
             String queryInsert = ""; // Ajustar la query
 
+            System.out.println("INICIAMOS LECTURA ClienteService");
+
             while ((line = br.readLine()) != null) {
 
                 String[] datos = line.split(cvsSplitBy);
@@ -41,6 +43,7 @@ public class ClienteService {
                 }
             }
             connection.close();
+            System.out.println("CERRAMOS CONEXION ClienteService");
         } catch (Exception e) {
             e.printStackTrace();
         }

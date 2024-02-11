@@ -30,6 +30,8 @@ public class CuentaClienteService {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/migration.db");
             String queryInsert = "INSERT INTO CuentasClientes (id, idCliente) VALUES (?, ?)"; // Ajustamos la query
 
+            System.out.println("INICIAMOS LECTURA CuentaClienteService");
+
             while ((line = br.readLine()) != null) {
                 String[] datos = line.split(cvsSplitBy);
 
@@ -45,6 +47,7 @@ public class CuentaClienteService {
                 }
             }
             connection.close();
+            System.out.println("CERRAMOS CONEXION CuentaClienteService");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,6 +71,8 @@ public class CuentaClienteService {
             //String query = "INSERT INTO CuentasClientes (id, idCliente) VALUES (?, ?)"; // Ajusta según tus campos
             String queryUpdate = "UPDATE CuentasClientes SET id = ?, idCliente = ?, idTicketCobro = ?, importe = ? WHERE id = ?";
 
+            System.out.println("INICIAMOS LECTURA CuentaClienteService");
+
             while ((line = br.readLine()) != null) {
                 String[] datos = line.split(cvsSplitBy);
 
@@ -90,6 +95,7 @@ public class CuentaClienteService {
                 }
             }
             connection.close();
+            System.out.println("CERRAMOS CONEXION CuentaClienteService");
         } catch (Exception e) {
             e.printStackTrace();
         }

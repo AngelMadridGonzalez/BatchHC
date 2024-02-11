@@ -31,6 +31,8 @@ public class TicketCobroService {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/migration.db");
             String queryInsert = "INSERT INTO TicketCobros (idReserva, idTipoCobro, numeroTicket, importe, fechaPago) VALUES ( ?, ?, ?, ?, ?)"; // Ajustamos la query
 
+            System.out.println("INICIAMOS LECTURA TicketCobroService");
+
             while ((line = br.readLine()) != null) {
                 String[] datos = line.split(cvsSplitBy);
 
@@ -55,6 +57,7 @@ public class TicketCobroService {
                 }
             }
             connection.close();
+            System.out.println("CERRAMOS CONEXION TicketCobroService");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -33,7 +33,7 @@ CREATE TABLE  Animales (
     raza           	TEXT NULL,
     fNacimiento    	TEXT NOT NULL,
     fFallecimiento 	TEXT NULL,
-    observacion    	TEXT NULL,
+    observacion    	TEXT NULL
 )
 
 DROP TABLE Clientes;
@@ -54,3 +54,17 @@ CREATE TABLE Clientes (
     observacion 	TEXT NULL
 )
 
+DROP TABLE Reservas_Servicios;
+
+CREATE TABLE Reservas_Servicios (
+    id          	INTEGER PRIMARY KEY UNIQUE NOT NULL,
+    idTarifas		INTEGER NOT NULL,
+    tipo			TEXT NOT NULL,
+    idReserva		INTEGER NOT NULL,
+    dias			INTEGER NOT NULL,
+    cantidad		INTEGER NOT NULL,
+    importe		    REAL NOT NULL,
+    fecha		    TEXT    NOT NULL,
+    fecha_servicio 	TEXT,
+    observacion    	TEXT
+);

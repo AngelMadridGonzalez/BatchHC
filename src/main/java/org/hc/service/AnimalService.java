@@ -27,6 +27,8 @@ public class AnimalService {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/migration.db");
             String queryInsert = ""; // Ajustar la query
 
+            System.out.println("INICIAMOS LECTURA AnimalService");
+
             while ((line = br.readLine()) != null) {
 
                 String[] datos = line.split(cvsSplitBy);
@@ -40,6 +42,7 @@ public class AnimalService {
                 }
             }
             connection.close();
+            System.out.println("CERRAMOS CONEXION AnimalService");
         } catch (Exception e) {
             e.printStackTrace();
         }
