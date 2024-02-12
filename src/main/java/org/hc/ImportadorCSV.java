@@ -15,8 +15,8 @@ public class ImportadorCSV {
 //        CuentasClientes();
 //        CuentasClientesLineas();
 //        TicketCobros();
-        Animales();
-//        Clientes();
+//        Animales();
+        Clientes();
 //        ReservasServiciosSQL();
 //        ReservasServiciosTxt();
         System.out.println("FIN");

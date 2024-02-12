@@ -5,10 +5,10 @@ public class Cliente{
     String nombre;
     String apellido1;
     String apellido2;
-    int sexo;
+    Integer sexo;
     String dni;
     String direccion;
-    int telefono;
+    String telefono;
     String email;
     int estado;
     String fechaAlta;
@@ -18,7 +18,7 @@ public class Cliente{
     public Cliente() {
         super();
     }
-    public Cliente(int id, String nombre, String apellido1, String apellido2, int sexo, String dni, String direccion, int telefono, String email, int estado, String fechaAlta, String fechaBaja, String observacion) {
+    public Cliente(int id, String nombre, String apellido1, String apellido2, Integer sexo, String dni, String direccion, String telefono, String email, int estado, String fechaAlta, String fechaBaja, String observacion) {
         this.id = id;
         this.nombre = nombre;
         this.apellido1 = apellido1;
@@ -66,11 +66,11 @@ public class Cliente{
         this.apellido2 = apellido2;
     }
 
-    public int getSexo() {
+    public Integer getSexo() {
         return sexo;
     }
 
-    public void setSexo(int sexo) {
+    public void setSexo(Integer sexo) {
         this.sexo = sexo;
     }
 
@@ -90,11 +90,11 @@ public class Cliente{
         this.direccion = direccion;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
