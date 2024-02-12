@@ -63,6 +63,7 @@ public class ReservaServiciosService {
                 try (PreparedStatement preparedStatement = connection.prepareStatement(queryInsert)) {
 
                     preparedStatement.setString(1, String.valueOf(reservaServicios.getId()));
+                    //FIXME SI VIENE NULO METER ID 99 -> "HISTORICO"
                     preparedStatement.setString(2, String.valueOf(reservaServicios.getIdTarifas()));
                     preparedStatement.setString(3, reservaServicios.getTipo());
                     preparedStatement.setString(4, String.valueOf(reservaServicios.getIdReserva()));
