@@ -12,13 +12,13 @@ import static org.hc.service.ReservaServiciosService.ReservasServiciosSQL;
 public class ImportadorCSV {
     public static void main(String[] args) throws IOException {
         System.out.println("INI");
-//        CuentasClientes();
-//        CuentasClientesLineas();
-//        TicketCobros();
-//        Animales();
+        CuentasClientes();
+        CuentasClientesLineas();
+        TicketCobros();
+        Animales();
         Clientes();
-//        ReservasServiciosSQL();
-//        ReservasServiciosTxt();
+        ReservasServiciosSQL();
+        ReservasServiciosTxt();
         System.out.println("FIN");
     }
 }
