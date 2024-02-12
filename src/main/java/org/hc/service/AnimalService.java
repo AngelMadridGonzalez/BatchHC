@@ -39,18 +39,22 @@ public class AnimalService {
                 Animal animal = new Animal(); // Ajusta según campos
                 animal.setId(Integer.parseInt(datos[0]));
                 animal.setIdCliente(Integer.parseInt(datos[1]));
-                animal.setIdTipoAnimal(TipoAnimal.obtainTipoAnimal((datos[2])));
-                animal.setNombre(datos[3]);
+                animal.setIdTipoAnimal(TipoAnimal.obtainTipoAnimal((datos[2].replaceAll("\"+", ""))));
+                animal.setNombre(datos[3].replaceAll("\"+", ""));
                 if(!StringUtils.isBlank(datos[4])){
-                    animal.setnMicrochip(datos[4]);
+                    if(!verifyValue(datos[4].replaceAll("\"+", ""))){
+                        animal.setnMicrochip(datos[4].replaceAll("\"+", ""));
+                    }else{
+                        animal.setnMicrochip(datos[0]);
+                    }
                 }else{
                     animal.setnMicrochip(datos[0]);
                 }
                 animal.setfNacimiento(datos[5]);
-                animal.setRaza(datos[6]);
-                animal.setObservacion(datos[7].concat(datos[9]).concat(" color : ".concat(datos[10])));
+                animal.setRaza(datos[6].replaceAll("\"+", ""));
+                animal.setObservacion(datos[7].concat(datos[9].replaceAll("\"+", "")).concat(" color : ".concat(datos[10].replaceAll("\"+", ""))));
                 if(!StringUtils.isBlank(datos[8])){
-                    animal.setSexo(Sexo.obtainNewSex(datos[8]));
+                    animal.setSexo(Sexo.obtainNewSex(datos[8].replaceAll("\"+", "")));
                 }
                 try (PreparedStatement preparedStatement = connection.prepareStatement(queryInsert)) {
 
@@ -61,7 +65,7 @@ public class AnimalService {
                     preparedStatement.setString(5, animal.getnMicrochip());
                     preparedStatement.setString(6, animal.getfNacimiento());
                     preparedStatement.setString(7, animal.getRaza());
-                    preparedStatement.setString(8, animal.getObservacion());
+                    preparedStatement.setString(8, animal.getObservacion().replaceAll("\"+", "").replaceAll("\"\"+", ""));
                     preparedStatement.setString(9, String.valueOf(animal.getSexo()));
                     //Preparar los statement
                     preparedStatement.executeUpdate();
@@ -71,6 +75,18 @@ public class AnimalService {
             System.out.println("CERRAMOS CONEXION AnimalService");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private static boolean verifyValue(String dato) {
+        try {
+            if (Integer.parseInt(dato) == 0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch (Exception e){
+            return true;
         }
     }
 }
