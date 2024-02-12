@@ -3,10 +3,10 @@ package org.hc.model;
 public class Animal {
     int id;
     int idCliente;
-    int idTipoAnimal;
+    Integer idTipoAnimal;
     String nMicrochip;
     String nombre;
-    int sexo;
+    Integer sexo;
     String raza;
     String fNacimiento;
     String fFallecimiento;
@@ -16,7 +16,7 @@ public class Animal {
         super();
     }
 
-    public Animal(int id, int idCliente, int idTipoAnimal, String nMicrochip, String nombre, int sexo, String raza, String fNacimiento, String fFallecimiento, String observacion) {
+    public Animal(int id, int idCliente, Integer idTipoAnimal, String nMicrochip, String nombre, Integer sexo, String raza, String fNacimiento, String fFallecimiento, String observacion) {
         this.id = id;
         this.idCliente = idCliente;
         this.idTipoAnimal = idTipoAnimal;
@@ -45,11 +45,11 @@ public class Animal {
         this.idCliente = idCliente;
     }
 
-    public int getIdTipoAnimal() {
+    public Integer getIdTipoAnimal() {
         return idTipoAnimal;
     }
 
-    public void setIdTipoAnimal(int idTipoAnimal) {
+    public void setIdTipoAnimal(Integer idTipoAnimal) {
         this.idTipoAnimal = idTipoAnimal;
     }
 
@@ -69,11 +69,11 @@ public class Animal {
         this.nombre = nombre;
     }
 
-    public int getSexo() {
+    public Integer getSexo() {
         return sexo;
     }
 
-    public void setSexo(int sexo) {
+    public void setSexo(Integer sexo) {
         this.sexo = sexo;
     }
 
