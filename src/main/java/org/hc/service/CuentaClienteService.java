@@ -27,8 +27,8 @@ public class CuentaClienteService {
         String cvsSplitBy = ",";
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/migration.db");
-            String queryInsert = "INSERT INTO CuentasClientes (id, idCliente) VALUES (?, ?)"; // Ajustamos la query
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/dogodb.db");
+            String queryInsert = "INSERT INTO Cuentas_Clientes (id, idCliente) VALUES (?, ?)"; // Ajustamos la query
 
             System.out.println("INICIAMOS LECTURA CuentaClienteService");
 
@@ -67,9 +67,9 @@ public class CuentaClienteService {
         String cvsSplitBy = ",";
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/migration.db");
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/dogodb.db");
             //String query = "INSERT INTO CuentasClientes (id, idCliente) VALUES (?, ?)"; // Ajusta según tus campos
-            String queryUpdate = "UPDATE CuentasClientes SET id = ?, idCliente = ?, idTicketCobro = ?, importe = ? WHERE id = ?";
+            String queryUpdate = "UPDATE Cuentas_Clientes SET id = ?, idCliente = ?, idTicketCobro = ?, importe = ? WHERE id = ?";
 
             System.out.println("INICIAMOS LECTURA CuentaClienteService");
 

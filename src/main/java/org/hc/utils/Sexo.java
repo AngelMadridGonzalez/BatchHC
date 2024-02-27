@@ -3,7 +3,8 @@ package org.hc.utils;
 public enum Sexo {
 
     MASCULINO("M",1),
-    FEMENINO("F",0);
+    FEMENINO("F",0),
+    HEMBRA("H",0);
     String old_code;
     Integer new_code;
 

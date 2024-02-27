@@ -28,7 +28,7 @@ public class ClienteService {
 
         //id,"nombre","apellido1","trial_apellido2_4","trial_sexo_5","dni",via,"codposta","trial_localidad_9","tlf","email","dto",fechacrea,fechaanul
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/migration.db");
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/dogodb.db");
 
             String queryInsert = "INSERT INTO Clientes (id, nombre, apellido1, apellido2, sexo, dni, direccion, telefono, email, fechaAlta, fechaBaja, observacion) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 

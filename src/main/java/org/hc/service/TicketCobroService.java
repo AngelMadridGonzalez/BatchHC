@@ -28,8 +28,8 @@ public class TicketCobroService {
 
         //FIXME
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/migration.db");
-            String queryInsert = "INSERT INTO TicketCobros (idReserva, idTipoCobro, numeroTicket, importe, fechaPago) VALUES ( ?, ?, ?, ?, ?)"; // Ajustamos la query
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/dogodb.db");
+            String queryInsert = "INSERT INTO Ticket_Cobros (id, idTipoCobro, numeroTicket, importe, fechaPago, cobrado) VALUES ( ?, ?, ?, ?, ?, ?)"; // Ajustamos la query
 
             System.out.println("INICIAMOS LECTURA TicketCobroService");
 
@@ -45,6 +45,8 @@ public class TicketCobroService {
                 }
                 ticketCobros.setFechaPago(datos[4]);
 
+                //FIXME Pongo SI a lo cobrado
+                ticketCobros.setCobrado("SI");
                 try (PreparedStatement preparedStatement = connection.prepareStatement(queryInsert)) {
 
                     preparedStatement.setString(1, String.valueOf(ticketCobros.getIdReserva()));
@@ -52,6 +54,7 @@ public class TicketCobroService {
                     preparedStatement.setString(3, String.valueOf(ticketCobros.getNumeroTicket()));
                     preparedStatement.setString(4, String.valueOf(ticketCobros.getImporte()));
                     preparedStatement.setString(5, ticketCobros.getFechaPago());
+                    preparedStatement.setString(6, ticketCobros.getCobrado());
 
                     preparedStatement.executeUpdate();
                 }
@@ -62,4 +65,8 @@ public class TicketCobroService {
             e.printStackTrace();
         }
     }
+
+    //FIXME
+    // Hay que quitar el id como PK
+
 }
