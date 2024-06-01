@@ -27,7 +27,8 @@ public class CuentaClienteService {
         String cvsSplitBy = ",";
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/dogodb.db");
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/migration.db");
+            //Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/dogodb.db");
             String queryInsert = "INSERT INTO Cuentas_Clientes (id, idCliente) VALUES (?, ?)"; // Ajustamos la query
 
             System.out.println("INICIAMOS LECTURA CuentaClienteService");

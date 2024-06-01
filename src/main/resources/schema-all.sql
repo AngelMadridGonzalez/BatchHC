@@ -1,70 +1,78 @@
-DROP TABLE CuentasClientes;
-
-CREATE TABLE IF NOT EXISTS CuentasClientes (
-    id          	INTEGER PRIMARY KEY UNIQUE NOT NULL,
-    idCliente       INTEGER NOT NULL,
-    idTicketCobro   INTEGER,
-    tarjeta  		TEXT,
-    importe		    INTEGER DEFAULT (0),
-    estado		    INTEGER DEFAULT (0)
-)
-
-DROP TABLE TicketCobros;
-
-CREATE TABLE TicketCobros(
-    idReserva       INTEGER NOT NULL,
-    idTipoCobro     INTEGER NOT NULL,
-    numeroTicket 	INTEGER NOT NULL,
-    importe 		REAL NOT NULL,
-    cobrado 		TEXT NULL,
-    fechaPago 		TEXT NULL,
-    observacion	    TEXT NULL
-)
-
 DROP TABLE Animales;
 
-CREATE TABLE  Animales (
-    id          	INTEGER PRIMARY KEY UNIQUE NOT NULL,
-    idCliente      	INTEGER NOT NULL,
-    idTipoAnimal   	INTEGER NOT NULL,
-    nMicrochip     	TEXT UNIQUE NOT NULL,
-    nombre         	TEXT NULL,
-    sexo           	INTEGER NULL,
-    raza           	TEXT NULL,
-    fNacimiento    	TEXT NOT NULL,
-    fFallecimiento 	TEXT NULL,
-    observacion    	TEXT NULL
-)
+CREATE TABLE "Animales" (
+                            "id"	INTEGER NOT NULL UNIQUE,
+                            "idCliente"	INTEGER NOT NULL,
+                            "idTipoAnimal"	INTEGER NOT NULL,
+                            "nMicrochip"	TEXT NOT NULL UNIQUE,
+                            "nombre"	TEXT,
+                            "sexo"	INTEGER,
+                            "raza"	TEXT,
+                            "fNacimiento"	TEXT NOT NULL,
+                            "fFallecimiento"	TEXT,
+                            "observacion"	TEXT,
+                            PRIMARY KEY("id")
+);
 
 DROP TABLE Clientes;
 
-CREATE TABLE Clientes (
-    id          	INTEGER PRIMARY KEY UNIQUE NOT NULL,
-    nombre      	TEXT NULL,
-    apellido1   	TEXT NULL,
-    apellido2   	TEXT NULL,
-    sexo        	INTEGER NULL,
-    dni        		TEXT NOT NULL,
-    direccion   	TEXT NOT NULL,
-    telefono    	INTEGER NULL,
-    email       	TEXT NULL,
-    estado		    INTEGER DEFAULT (1) NOT NULL,
-    fechaAlta   	TEXT NOT NULL,
-    fechaBaja  	 	TEXT NULL,
-    observacion 	TEXT NULL
-)
+CREATE TABLE "Clientes" (
+                            "id"	INTEGER NOT NULL UNIQUE,
+                            "nombre"	TEXT,
+                            "apellido1"	TEXT,
+                            "apellido2"	TEXT,
+                            "sexo"	INTEGER,
+                            "dni"	TEXT NOT NULL,
+                            "direccion"	TEXT NOT NULL,
+                            "telefono"	INTEGER,
+                            "email"	TEXT,
+                            "estado"	INTEGER NOT NULL DEFAULT (1),
+                            "fechaAlta"	TEXT NOT NULL,
+                            "fechaBaja"	TEXT,
+                            "observacion"	TEXT,
+                            PRIMARY KEY("id")
+);
 
-DROP TABLE Reservas_Servicios;
+DROP TABLE Cuentas_Clientes;
 
-CREATE TABLE Reservas_Servicios (
-    id          	INTEGER PRIMARY KEY UNIQUE NOT NULL,
-    idTarifas		INTEGER NOT NULL,
-    tipo			TEXT NOT NULL,
-    idReserva		INTEGER NOT NULL,
-    dias			INTEGER NOT NULL,
-    cantidad		INTEGER NOT NULL,
-    importe		    REAL NOT NULL,
-    fecha		    TEXT    NOT NULL,
-    fecha_servicio 	TEXT,
-    observacion    	TEXT
+CREATE TABLE "Cuentas_Clientes" (
+                                    "id"	INTEGER NOT NULL UNIQUE,
+                                    "idCliente"	INTEGER NOT NULL,
+                                    "idTicketCobro"	INTEGER,
+                                    "tarjeta"	TEXT,
+                                    "importe"	INTEGER DEFAULT (0),
+                                    "estado"	INTEGER DEFAULT (0),
+                                    PRIMARY KEY("id")
+);
+
+DROP TABLE Ticket_Cobros;
+
+CREATE TABLE "Ticket_Cobros" (
+                                 "id"	INTEGER UNIQUE,
+                                 "idOcupacion"	INTEGER,
+                                 "idTipoCobro"	INTEGER NOT NULL,
+                                 "numeroTicket"	INTEGER,
+                                 "importe"	REAL NOT NULL,
+                                 "cobrado"	TEXT NOT NULL,
+                                 "fechaPago"	TEXT,
+                                 "observacion"	TEXT,
+                                 PRIMARY KEY("id"),
+                                 FOREIGN KEY("idOcupacion") REFERENCES "Reservas"("id"),
+                                 FOREIGN KEY("idTipoCobro") REFERENCES "Tipos_Cobros"("id")
+);
+
+DROP TABLE Reserva_Servicios;
+
+CREATE TABLE "Reserva_Servicios" (
+                                     "id"	INTEGER NOT NULL UNIQUE,
+                                     "idTarifa"	INTEGER NOT NULL,
+                                     "tipo"	TEXT NOT NULL,
+                                     "idReserva"	INTEGER NOT NULL,
+                                     "dias"	INTEGER NOT NULL,
+                                     "cantidad"	INTEGER NOT NULL,
+                                     "importe"	REAL NOT NULL,
+                                     "fecha"	TEXT NOT NULL,
+                                     "fecha_servicio"	TEXT,
+                                     "observacion"	TEXT,
+                                     PRIMARY KEY("id")
 );

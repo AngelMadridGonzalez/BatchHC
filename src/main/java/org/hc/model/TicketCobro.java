@@ -3,7 +3,7 @@ package org.hc.model;
 import java.math.BigDecimal;
 public class TicketCobro {
 
-    int idReserva;
+    int idOcupacion;
     int idTipoCobro;
     int numeroTicket;
     BigDecimal importe;
@@ -15,8 +15,8 @@ public class TicketCobro {
         super();
     }
 
-    public TicketCobro(int idReserva, int idTipoCobro, int numeroTicket, BigDecimal importe, String cobrado, String fechaPago, String observacion) {
-        this.idReserva = idReserva;
+    public TicketCobro(int idOcupacion, int idTipoCobro, int numeroTicket, BigDecimal importe, String cobrado, String fechaPago, String observacion) {
+        this.idOcupacion = idOcupacion;
         this.idTipoCobro = idTipoCobro;
         this.numeroTicket = numeroTicket;
         this.importe = importe;
@@ -25,12 +25,12 @@ public class TicketCobro {
         this.observacion = observacion;
     }
 
-    public int getIdReserva() {
-        return idReserva;
+    public int getIdOcupacion() {
+        return idOcupacion;
     }
 
-    public void setIdReserva(int idReserva) {
-        this.idReserva = idReserva;
+    public void setIdOcupacion(int idOcupacion) {
+        this.idOcupacion = idOcupacion;
     }
 
     public int getIdTipoCobro() {

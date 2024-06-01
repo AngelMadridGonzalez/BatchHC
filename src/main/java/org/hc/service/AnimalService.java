@@ -30,7 +30,8 @@ public class AnimalService {
 
         //"id","lnk_idcliente","trial_lnk_idtipanimal_3","nombre","numtarsani","fechanaci","raza","observaci","sexo","historico","color"
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/dogodb.db");
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/migration.db");
+            //Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/dogodb.db");
             String queryInsert = "INSERT INTO Animales (id, idCliente, idTipoAnimal, nombre, nMicrochip, fNacimiento, raza, observacion, sexo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             System.out.println("INICIAMOS LECTURA AnimalService");
 
@@ -332,11 +333,6 @@ public class AnimalService {
         listDuplicados.add("0977200001362588");
         listDuplicados.add("0977200004461197");
         listDuplicados.add("0977200001292686");
-        //listDuplicados.add("");
-        //listDuplicados.add("");
-        //listDuplicados.add("");
-        //listDuplicados.add("");
-        //listDuplicados.add("");
         for(String id : listDuplicados){
             if(dato.equals(id)){
                 return true;
