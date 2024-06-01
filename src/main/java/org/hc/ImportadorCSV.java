@@ -15,8 +15,8 @@ public class ImportadorCSV {
         Animales();
         CuentasClientes();
         CuentasClientesLineas();
-        TicketCobros();
         ReservasServicios();
+        TicketCobros();
         System.out.println("FIN");
     }
 }

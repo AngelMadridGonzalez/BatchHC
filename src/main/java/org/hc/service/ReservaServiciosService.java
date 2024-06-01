@@ -30,7 +30,7 @@ public class ReservaServiciosService {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/migration.db");
             //Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/dogodb.db");
-            String queryInsert = "INSERT INTO Reserva_Servicios (id, idTarifa, dias, cantidad, importe, fecha, fechaServicio,observacion) VALUES (?, ?, ?, ?, ?, ?, ?,?)"; // Ajustamos la query
+            String queryInsert = "INSERT INTO Reserva_Servicios (id, idTarifa, dias, cantidad, importe, fecha, fecha_servicio,observacion, tipo, idReserva) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // Ajustamos la query
 
             System.out.println("INICIAMOS LECTURA ReservaServiciosService");
 
@@ -74,8 +74,8 @@ public class ReservaServiciosService {
                     preparedStatement.setString(6, reservaServicios.getFecha());
                     preparedStatement.setString(7, reservaServicios.getFecha_servicio());
                     preparedStatement.setString(8, reservaServicios.getObservacion());
-                    //preparedStatement.setString(9, reservaServicios.getTipo());
-                    //preparedStatement.setString(10, String.valueOf(reservaServicios.getIdReserva()));
+                    preparedStatement.setString(9, reservaServicios.getTipo());
+                    preparedStatement.setString(10, String.valueOf(reservaServicios.getIdReserva()));
                     //Preparar los statement
                     preparedStatement.executeUpdate();
 
