@@ -68,7 +68,7 @@ public class CuentaClienteService {
         String cvsSplitBy = ",";
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/dogodb.db");
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/db/migration.db");
             //String query = "INSERT INTO CuentasClientes (id, idCliente) VALUES (?, ?)"; // Ajusta según tus campos
             String queryUpdate = "UPDATE Cuentas_Clientes SET id = ?, idCliente = ?, idTicketCobro = ?, importe = ? WHERE id = ?";
 
@@ -79,7 +79,13 @@ public class CuentaClienteService {
 
                 CuentaCliente cuentaCliente = new CuentaCliente(); // Ajusta según tus campos
                 cuentaCliente.setIdCliente(datos[0]);
+
+                //FIXME ticketCobro lo rellenamos
                 cuentaCliente.setIdTicketCobro(Integer.parseInt(datos[2]));
+
+
+
+
                 if(!StringUtils.isBlank(datos[3])){
                     cuentaCliente.setImporte(new BigDecimal(datos[3]));
                 }

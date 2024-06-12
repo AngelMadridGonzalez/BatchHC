@@ -13,10 +13,10 @@ public class ImportadorCSV {
         System.out.println("INI");
         Clientes();
         Animales();
-        CuentasClientes();
-        CuentasClientesLineas();
-        ReservasServicios();
-        TicketCobros();
+        //CuentasClientes();
+        //CuentasClientesLineas();
+        //ReservasServicios();
+        //TicketCobros();
         System.out.println("FIN");
     }
 }
