@@ -42,9 +42,14 @@ public class AnimalService {
                 Animal animal = new Animal(); // Ajusta según campos
                 animal.setId(Integer.parseInt(datos[0]));
                 animal.setIdCliente(Integer.parseInt(datos[1]));
-                animal.setIdTipoAnimal(TipoAnimal.obtainTipoAnimal((datos[2].replaceAll("\"+", ""))));
+                if(TipoAnimal.obtainTipoAnimal((datos[2].replaceAll("\"+", ""))) != null) {
+                    animal.setIdTipoAnimal(TipoAnimal.obtainTipoAnimal((datos[2].replaceAll("\"+", ""))));
+                }else {
+                    animal.setIdTipoAnimal(TipoAnimal.obtainTipoAnimal("5"));
+                }
+
                 animal.setNombre(datos[3].replaceAll("\"+", ""));
-                if(!StringUtils.isBlank(datos[4])){
+                if(!StringUtils.isBlank(datos[4].replaceAll("\"+", ""))){
                     if(!verifyValue(datos[4].replaceAll("\"+", ""))){
                         animal.setnMicrochip(datos[4].replaceAll("\"+", ""));
                     }else{
@@ -53,10 +58,16 @@ public class AnimalService {
                 }else{
                     animal.setnMicrochip(datos[0]);
                 }
-                animal.setfNacimiento(datos[5]);
+                ;
+                if(!StringUtils.isBlank(datos[5].replaceAll("\"+", ""))){
+                	animal.setfNacimiento(datos[5].replaceAll("\"+", ""));
+                }else {
+                	animal.setfNacimiento("01/01/2024 00:00:00");
+                }
+                
                 animal.setRaza(datos[6].replaceAll("\"+", ""));
                 animal.setObservacion(datos[7].concat(datos[9].replaceAll("\"+", "")).concat(" color : ".concat(datos[10].replaceAll("\"+", ""))));
-                if(!StringUtils.isBlank(datos[8])){
+                if(!StringUtils.isBlank(datos[8].replaceAll("\"+", ""))){
                     animal.setSexo(Sexo.obtainNewSex(datos[8].replaceAll("\"+", "")));
                 }
                 try (PreparedStatement preparedStatement = connection.prepareStatement(queryInsert)) {
@@ -333,6 +344,27 @@ public class AnimalService {
         listDuplicados.add("0977200001362588");
         listDuplicados.add("0977200004461197");
         listDuplicados.add("0977200001292686");
+        listDuplicados.add("941000024595345");
+        listDuplicados.add("981098102813381");
+        listDuplicados.add("941000025096536");
+        listDuplicados.add("941000023649192");
+        listDuplicados.add("941000012235527");
+        listDuplicados.add("941000018719983");
+        listDuplicados.add("900164002051705");
+        listDuplicados.add("941000025555729");
+        listDuplicados.add("981098104957250");
+        listDuplicados.add("941000023125333");       
+        listDuplicados.add("941000018416100");       
+        listDuplicados.add("977200008069527");
+        listDuplicados.add("981098106432090");
+        listDuplicados.add("977200008940424");
+        listDuplicados.add("941000027160216"); 
+        listDuplicados.add("985113006843958"); 
+        listDuplicados.add("977200008499051");   
+        listDuplicados.add("941000016028873");     
+        listDuplicados.add("938000000813487");  
+        listDuplicados.add("900085000247364"); 
+        listDuplicados.add("985113002126439");         
         for(String id : listDuplicados){
             if(dato.equals(id)){
                 return true;

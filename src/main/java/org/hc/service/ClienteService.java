@@ -44,28 +44,37 @@ public class ClienteService {
                     cliente.setNombre(datos[1].replaceAll("\"+", ""));
                     cliente.setApellido1(datos[2].replaceAll("\"+", ""));
                     cliente.setApellido2(datos[3].replaceAll("\"+", ""));
-                    if(!StringUtils.isBlank(datos[4])){
+                    if(!StringUtils.isBlank(datos[4].replaceAll("\"+", ""))){
                         cliente.setSexo(Sexo.obtainNewSex(datos[4].replaceAll("\"+", "")));
                     }
                     cliente.setDni(datos[5].replaceAll("\"+", ""));
                     cliente.setDireccion(datos[6].replaceAll("\"+", "").concat(datos[7].replaceAll("\"+", "").concat(datos[8].replaceAll("\"+", ""))));
                     cliente.setTelefono(datos[9].replaceAll("\"+", ""));
                     cliente.setEmail(datos[10].replaceAll("\"+", ""));
-                    cliente.setFechaAlta(datos[12]);
+                    if(!StringUtils.isBlank(datos[12].replaceAll("\"+", ""))){
+                        cliente.setFechaAlta(datos[12].replaceAll("\"+", ""));
+                    }else {
+                        cliente.setFechaAlta("01/01/2024 00:00:00");
+                    }
                 }else{
                     cliente.setId(Integer.parseInt(datos[0]));
                     cliente.setNombre(datos[1].replaceAll("\"+", ""));
                     cliente.setApellido1(datos[2].replaceAll("\"+", ""));
                     cliente.setApellido2(datos[3].replaceAll("\"+", ""));
-                    if(!StringUtils.isBlank(datos[4])){
+                    if(!StringUtils.isBlank(datos[4].replaceAll("\"+", ""))){
                         cliente.setSexo(Sexo.obtainNewSex(datos[4].replaceAll("\"+", "")));
                     }
                     cliente.setDni(datos[5].replaceAll("\"+", ""));
                     cliente.setDireccion(datos[6].replaceAll("\"+", "").concat(datos[7].replaceAll("\"+", "").concat(datos[8].replaceAll("\"+", "").concat(datos[9].replaceAll("\"+", "")))));
                     cliente.setTelefono(datos[10].replaceAll("\"+", ""));
                     cliente.setEmail(datos[11].replaceAll("\"+", ""));
-                    cliente.setFechaAlta(datos[12]);
-                    cliente.setFechaBaja(datos[13]);
+                    if(!StringUtils.isBlank(datos[12].replaceAll("\"+", ""))){
+                        cliente.setFechaAlta(datos[12].replaceAll("\"+", ""));
+                    }else {
+                        cliente.setFechaAlta("01/01/2024 00:00:00");
+                    }
+
+                    cliente.setFechaBaja(datos[13].replaceAll("\"+", ""));
                 }
 
 
