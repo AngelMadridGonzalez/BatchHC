@@ -77,7 +77,6 @@ public class ClienteService {
                     cliente.setFechaBaja(datos[13].replaceAll("\"+", ""));
                 }
 
-
                 try (PreparedStatement preparedStatement = connection.prepareStatement(queryInsert)) {
 
                     preparedStatement.setString(1, String.valueOf(cliente.getId()));

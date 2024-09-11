@@ -2,9 +2,10 @@ package org.hc.utils;
 
 public enum Sexo {
 
-    MASCULINO("M",1),
+	//Para personas H (Hombre) y para mascotas H (Hembra) 
+    MASCULINO("M",0),
     FEMENINO("F",0),
-    HEMBRA("H",0);
+    HEMBRA("H",1);
     String old_code;
     Integer new_code;
 
